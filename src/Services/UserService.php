@@ -54,11 +54,11 @@ class UserService
     
         foreach ($fieldsToUpdate as $field => $setter) {
             if (property_exists($dto, $field) && $dto->$field !== null) {
+                if ($field === 'email') {
+                    $this->checkEmailTakenByAnotherUser($dto->$field, $user);
+                }
                 if ($field === 'birthday') {
                     $date = \DateTime::createFromFormat('Y-m-d', $dto->$field);
-                    if ($date === false) {
-                        throw new \InvalidArgumentException('Invalid date format for birthday');
-                    }
                     $user->$setter($date);
                 } else {
                     $user->$setter($dto->$field);
