@@ -1,0 +1,36 @@
+services:
+  app:
+    image: webdevops/php-nginx:8.1
+    container_name: symfony_app
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8000:80"
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+    networks:
+      - app-network
+    depends_on:
+      - database
+
+  database:
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
+    container_name: symfony_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-novex_db}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-novex}
+      POSTGRES_USER: ${POSTGRES_USER:-novex}
+    volumes:
+      - database_data:/var/lib/postgresql/data:rw
+    ports:
+      - "5434:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  database_data:
