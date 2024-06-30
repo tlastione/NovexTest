@@ -4,12 +4,13 @@ namespace App\Services;
 
 use App\Entity\User;
 use App\Dto\CreateUserDto;
-use App\Dto\UpdateUserPatchDto;
 use App\Dto\UpdateUserPutDto;
+use App\Dto\UpdateUserPatchDto;
+use App\Interface\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
-class UserService
+class UserService implements UserServiceInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager

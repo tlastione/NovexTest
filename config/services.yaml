@@ -19,4 +19,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    App\Interface\UserServiceInterface:
+        alias: App\Service\UserService
     

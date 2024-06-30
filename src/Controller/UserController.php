@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Dto\CreateUserDto;
 use App\Dto\UpdateUserPutDto;
-use App\Services\UserService;
 use App\Dto\UpdateUserPatchDto;
+use App\Interface\UserServiceInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
@@ -18,7 +18,7 @@ use OpenApi\Attributes as OA;
 class UserController extends AbstractController
 {
     public function __construct(
-        private UserService $userService,
+        private UserServiceInterface $userService,
     ){}
     
     #[OA\Post(
